@@ -145,7 +145,7 @@ export default function QrCodePayment() {
           // Transaction successful, send status to Flask API endpoint
           const transactionStatus = { success: true, transactionId: signatureInfo.signature };
           setSuccess("You can use your Kekenapep1");
-          await fetch('http://127.0.0.1:5000/transaction-state', {
+          await fetch('https://rnqez-41-190-14-16.a.free.pinggy.link/transaction-state', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

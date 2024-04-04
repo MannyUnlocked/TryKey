@@ -58,7 +58,7 @@ export default function QrCodePayment() {
           await fetch('https://flask-wtqv.onrender.com/transaction-stat', {
             method: 'POST',
             headers: {
-              'Content-Type': 'text/json'
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify(transactionStatus)
             return transactionStatus.json();

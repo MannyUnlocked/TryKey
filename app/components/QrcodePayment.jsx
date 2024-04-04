@@ -1,4 +1,3 @@
-"use client"
 import { useEffect, useRef, useState, useMemo } from "react";
 import BigNumber from 'bignumber.js';
 import {
@@ -8,20 +7,15 @@ import {
   FindReferenceError,
   validateTransfer,
 } from "@solana/pay";
-import { axios} from "axios"
-// import { setCookie } from 'cookies-next';
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
-// import useToastHook from "@/hooks/useToastHook";
-// import { CONNECTION } from "@/utils/data";
-// import { createQR } from "@/utils/createQr";
-;
 
-const CONNECTION = new Connection(`https://devnet.helius-rpc.com/?api-key=f35a6b68-2ef4-4620-a8be-5a893d35eb9a`,"finalized");
+const CONNECTION = new Connection(`https://devnet.helius-rpc.com/?api-key=f35a6b68-2ef4-4620-a8be-5a893d35eb9a`, "finalized");
 
 export default function QrCodePayment() {
   const [success, setSuccess] = useState("");
   const qrRef = useRef(null);
 
+  // Define recipient, amount, reference, label, message, and memo
   const recipient = new PublicKey("37vHKCCzgDhSKoJHE2VYbxDAckJS4Jr6HXcq8oJ7cJJy");
   const amount = new BigNumber(Number(0.1));
   const reference = useMemo(() => Keypair.generate().publicKey, []);
@@ -54,13 +48,12 @@ export default function QrCodePayment() {
           recipient,
           amount,
           reference
-        }, { commitment: "finalized" })
+        }, { commitment: "finalized" });
 
         if (validated) {
-          setSuccess("You can use your Kekenapep0");
+          setSuccess("Transaction successful");
           // Transaction successful, send status to Flask API endpoint
           const transactionStatus = { success: true, transactionId: signatureInfo.signature };
-          setSuccess("You can use your Kekenapep1");
           await fetch('https://flask-wtqv.onrender.com/transaction-stat', {
             method: 'POST',
             headers: {
@@ -70,18 +63,20 @@ export default function QrCodePayment() {
           })
           .then(response => {
             if (response.ok) {
-              setSuccess("You can use you Kekenapep");
+              setSuccess("Transaction status sent successfully");
             } else {
               throw new Error('Failed to send transaction status to server');
             }
             console.log(transactionStatus); // Moved console.log here
-          })}
+          });
+        }
 
       } catch (e) {
         console.log(e)
         if (e instanceof FindReferenceError) {
           return;
         }
+        setSuccess("An error occurred");
       }
     }, 5000); // Check for new transactions every 5 seconds
     return () => {
@@ -91,10 +86,10 @@ export default function QrCodePayment() {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <p>{success}1</p>
+      <p>{success}</p>
       {success.length > 0 ?
         <div>
-          <p>{success}3</p>
+          <p>{success}</p>
         </div>
         :
         <div ref={qrRef} />
@@ -102,4 +97,5 @@ export default function QrCodePayment() {
     </div>
   )
 }
+
 

@@ -61,6 +61,7 @@ export default function QrCodePayment() {
               'Content-Type': 'application/json;odata=verbose'
             },
             body: JSON.stringify(transactionStatus)
+            return transactionStatus.json();
           })
           .then(response => {
             if (response.ok) {

@@ -16,7 +16,7 @@ import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 // import { createQR } from "@/utils/createQr";
 ;
 
-const CONNECTION = new Connection(`https://devnet.helius-rpc.com/?api-key=f35a6b68-2ef4-4620-a8be-5a893d35eb9a`,"finalized");
+const CONNECTION = new Connection(`https://devnet.helius-rpc.com/?api-key=4fc6ec4e-b017-4bed-98e2-bc5d3d7b6884`,"finalized");
 
 export default function QrCodePayment() {
   const [success, setSuccess] = useState("");

@@ -56,7 +56,7 @@ export default function QrCodePayment() {
             setSuccess("You can use your Kekenapep");
 
             // Transaction successful, send status to Flask API endpoint
-            const transactionStatus = { success: true, };
+            const transactionStatus = { success: true, transactionId};
 
             await fetch('https://flask-wtqv.onrender.com/transaction-mode', {
               method: 'POST',
